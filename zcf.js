@@ -15,8 +15,7 @@ fs.readFile('./data/seoul.csv', function (err, output) {
 
   bufferStr = conv.toString(); 
   bufferArr = bufferStr.split('\n'); 
-
-  var jsonArr = [];
+  var parsedSeoulData = [];
   var headers = bufferArr[0].split(',');
   for(var i = 1; i < bufferArr.length; i++) {
     var output = bufferArr[i].split(',');
@@ -24,24 +23,24 @@ fs.readFile('./data/seoul.csv', function (err, output) {
     for(var j = 0; j < output.length; j++) {
       obj[headers[j].trim()] = output[j].trim();
     }
-    jsonArr.push(obj);
+    parsedSeoulData.push(obj);
   }
+  JSON.stringify(parsedSeoulData);
+  //console.log(parsedSeoulData[1]);
+  //console.log(tool.rangeChecker(parsedSeoulData[1], 253));
 
-  JSON.stringify(jsonArr);
-  console.log(jsonArr[1]);
-  console.log(tool.addressParser(jsonArr));
 
   //reading and extracting raw data
   var rawData = xlsx.readFile('./data/raw data.xls');
   var rawDataSheet = rawData.Sheets[rawData.SheetNames[0]];
-  var addColumn = [];
+  var address = [];
   for (let i in rawDataSheet) {
     if(i.toString()[0] === 'G') {
-      addColumn.push(rawDataSheet[i].v);
+      address.push(rawDataSheet[i].v);
     }
   }
-  console.log(addColumn);
-
+  var parsedRawData = tool.addressParser(address);
+  //console.log(parsedRawData);
 
 
 })
