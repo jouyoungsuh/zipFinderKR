@@ -11,6 +11,19 @@ module.exports = {
         }
         return false;
     },
+
+    rangeChecker2:function(sdata, rdata) {
+        var add = sdata.address;
+        var array = add.split(" ");
+
+        for (let i = array[1]; i <=array[3]; i++) {
+            if (value = i) {
+                return true;
+            }
+        }
+        return false;
+    },
+
     addressParser:function(address) {
         var jsonArr = [];
         for (let i = 1; i <= address.length-1; i++) {
@@ -30,7 +43,6 @@ module.exports = {
             obj.address = divided[2];
             jsonArr.push(obj);
         }
-        JSON.stringify(jsonArr);
-        return jsonArr
+        return JSON.stringify(jsonArr);
     }
 }
