@@ -1,3 +1,5 @@
+const iconv = require('iconv-lite');
+
 module.exports = {
     rangeChecker:function(arr, value) {
         var add = arr.address;
@@ -38,11 +40,34 @@ module.exports = {
             //console.log('d3', divided[2]);
     
             var obj = {};
-            obj.city = divided[0];
-            obj.gu = divided[1];
-            obj.address = divided[2];
+            obj['city'] = divided[0];
+            obj['gu'] = divided[1];
+            obj['address'] = divided[2];
             jsonArr.push(obj);
         }
-        return JSON.stringify(jsonArr);
+        //var result = JSON.stringify(jsonArr)
+        return jsonArr;
+    }, 
+
+    CSVaddressParser:function(output) {
+        //decoding korean so that it is readable
+        let conv = iconv.decode(output, 'euc-kr');
+        bufferStr = conv.toString(); 
+        bufferArr = bufferStr.split('\n'); 
+
+        var parsedSeoulDB = [];
+        var headers = bufferArr[0].split(',');
+        for(var i = 1; i < bufferArr.length; i++) {
+            var output = bufferArr[i].split(',');
+            var obj = {};
+            for(var j = 0; j < output.length; j++) {
+            obj[headers[j].trim()] = output[j].trim();
+            }
+            parsedSeoulDB.push(obj);
+        }
+
+        //JSON.stringify(parsedSeoulDB);
+        //var result = JSON.stringify(parsedSeoulDB)
+        return parsedSeoulDB;
     }
 }
