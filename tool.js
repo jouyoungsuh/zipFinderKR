@@ -26,15 +26,23 @@ module.exports = {
         return false;
     },
 
-    addressParser:function(address) {
-        var jsonArr = [];
-        for (let i = 1; i <= address.length-1; i++) {
-            var divided = address[i].split(" ", 3);
+    addressParser:function(rawDBbook) {
+        var rawDBSheet = rawDBbook.Sheets[rawDBbook.SheetNames[0]];
+        var rawDB = [];
+        for (let i in rawDBSheet) {
+            if(i.toString()[0] === 'G') {
+                rawDB.push(rawDBSheet[i].v);
+            }
+        }
+
+        var parsedRawDB = [];
+        for (let i = 1; i <= rawDB.length-1; i++) {
+            var divided = rawDB[i].split(" ", 3);
             //console.log('d1', divided[0]);
             //console.log('d2', divided[1]);
             
-            var index = address[i].indexOf(divided[1]) + divided[1].length + 2;
-            divided[2] = address[i].slice(index, address[i].length);
+            var index = rawDB[i].indexOf(divided[1]) + divided[1].length + 2;
+            divided[2] = rawDB[i].slice(index, rawDB[i].length);
             var parsed = divided[2].split(",", 2);
             divided[2] = parsed[0]
             //console.log('d3', divided[2]);
@@ -43,10 +51,10 @@ module.exports = {
             obj['city'] = divided[0];
             obj['gu'] = divided[1];
             obj['address'] = divided[2];
-            jsonArr.push(obj);
+            parsedRawDB.push(obj);
         }
-        //var result = JSON.stringify(jsonArr)
-        return jsonArr;
+        //var result = JSON.stringify(parsedRawDB)
+        return parsedRawDB;
     }, 
 
     CSVaddressParser:function(output) {
