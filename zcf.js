@@ -11,7 +11,7 @@ var parsedSeoulDB = tool.CSVaddressParser(global_data);
   console.log('parsedSeoulDB :');
   console.log(parsedSeoulDB);
 */
-console.log(parsedSeoulDB[1].address);
+console.log(parsedSeoulDB[1]);
 
 
 var rawDBbook = xlsx.readFile('./data/raw data.xls');
@@ -20,5 +20,7 @@ var parsedRawDB = tool.addressParser(rawDBbook);
   console.log('parsedRawDB :');
   console.log(parsedRawDB);
 */
-console.log(parsedRawDB[1].address);
+console.log(parsedRawDB[1]);
 
+//console.log(tool.rangeChecker(parsedSeoulDB[1], 255));
+console.log('checking::' + tool.rangeChecker2(parsedSeoulDB[1], parsedRawDB[1]));

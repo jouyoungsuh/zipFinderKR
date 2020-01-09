@@ -15,15 +15,27 @@ module.exports = {
     },
 
     rangeChecker2:function(sdata, rdata) {
-        var add = sdata.address;
-        var array = add.split(" ");
+        var rdataAddress = rdata.address;
+        //rsplitted[0] will be showing its street name, and rsplitted[1] will be showing specific id
+        var rsplitted = rdataAddress.split(" ");
+        //console.log(rsplitted[0] +' '+ rsplitted[1]);
 
-        for (let i = array[1]; i <=array[3]; i++) {
-            if (value = i) {
+        var sdataAddress = sdata.address;
+        //first array is name of address, second is the start range, third is tilde(~), fourth is end range.
+        var ssplitted = sdataAddress.split(" ");
+
+        var target = parseInt(rsplitted[1], 10);
+        var a = parseInt(ssplitted[1], 10);
+        var b = parseInt(ssplitted[3], 10)
+        //console.log('target :' + target + ' a :' + a + ' b :' + b);
+
+        for (let i = a; i <= b; i++) {
+            console.log(i);
+            if (target == i) {
                 return true;
             }
         }
-        return false;
+        return false
     },
 
     addressParser:function(rawDBbook) {
