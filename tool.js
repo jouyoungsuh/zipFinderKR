@@ -21,21 +21,39 @@ module.exports = {
         //console.log(rsplitted[0] +' '+ rsplitted[1]);
 
         var sdataAddress = sdata.address;
-        //first array is name of address, second is the start range, third is tilde(~), fourth is end range.
+        //first array is name of street, second is the start range, third is tilde(~), fourth is end range.
         var ssplitted = sdataAddress.split(" ");
 
         var target = parseInt(rsplitted[1], 10);
         var a = parseInt(ssplitted[1], 10);
-        var b = parseInt(ssplitted[3], 10)
+        var b = parseInt(ssplitted[3], 10);
         //console.log('target :' + target + ' a :' + a + ' b :' + b);
 
         for (let i = a; i <= b; i++) {
-            console.log(i);
-            if (target == i) {
+            //console.log(rdata.city + sdata.city+ rdata.gu+sdata.gu+i);
+            if ((rdata.city == sdata.city) && (rdata.gu == sdata.gu) && (rsplitted[0] == ssplitted[0]) && (target == i)) {
                 return true;
             }
         }
         return false
+    },
+
+    rangeChecker3:function(sdata, rdata) {
+        var rawZip = [];
+        for (r = 0; r < rdata.length-1; r++) {
+            for (s = 0; s < sdata.length-1; s++) {
+                if (this.rangeChecker2(sdata[s], rdata[r])) {
+                    //console.log(sdata[s].zip +" "+rdata[r].city + " " + rdata[r].gu + " " + rdata[r].address);
+                    var obj = {};
+                    obj['zip'] = sdata[s].zip;
+                    obj['city'] = rdata[r].city;
+                    obj['gu'] = rdata[r].gu;
+                    obj['address'] = rdata[r].address;
+                    rawZip.push(obj);
+                }
+            }
+        }
+        return rawZip;
     },
 
     addressParser:function(rawDBbook) {

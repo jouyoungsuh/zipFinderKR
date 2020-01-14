@@ -11,7 +11,7 @@ var parsedSeoulDB = tool.CSVaddressParser(global_data);
   console.log('parsedSeoulDB :');
   console.log(parsedSeoulDB);
 */
-console.log(parsedSeoulDB[1]);
+//console.log(parsedSeoulDB[1]);
 
 
 var rawDBbook = xlsx.readFile('./data/raw data.xls');
@@ -20,7 +20,15 @@ var parsedRawDB = tool.addressParser(rawDBbook);
   console.log('parsedRawDB :');
   console.log(parsedRawDB);
 */
-console.log(parsedRawDB[1]);
+//console.log(parsedRawDB[1]);
 
-//console.log(tool.rangeChecker(parsedSeoulDB[1], 255));
-console.log('checking::' + tool.rangeChecker2(parsedSeoulDB[1], parsedRawDB[1]));
+
+/*
+console.log(parsedSeoulDB[12527], parsedRawDB[0]);
+console.log('checking2 for true: ' + tool.rangeChecker2(parsedSeoulDB[12527], parsedRawDB[0]));
+console.log(parsedSeoulDB[12690], parsedRawDB[1]);
+console.log('checking2 for false: ' + tool.rangeChecker2(parsedSeoulDB[12690], parsedRawDB[1]));
+*/
+
+var rawZip = tool.rangeChecker3(parsedSeoulDB, parsedRawDB);
+console.log(rawZip);
